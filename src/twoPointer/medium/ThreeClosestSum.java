@@ -8,26 +8,25 @@ public class ThreeClosestSum {
     // select i as the iterator and i+1 as start and arr.length as the end
     // set a variable closest sum which sets the closest sum
     public int threeSumClosest(int[] nums, int target) {
-        if (nums == null || nums.length < 3)
-            throw new IllegalArgumentException("Input array must have at least 3 numbers.");
+        if(nums == null || nums.length == 0) return 0;
 
-        int closestSum = nums[0] + nums[1] + nums[2];
+        // sort the array
         Arrays.sort(nums);
+        int closestSum = nums[0] + nums[1] + nums[2];
 
-        for (int i = 0; i < nums.length - 2; i++) {
-            int start = i + 1, end = nums.length - 1;
+        for(int i = 0; i < nums.length - 2; i++){
+            int start = i+1;
+            int end = nums.length - 1;
 
-            while (start < end) {
+            while(start < end){
                 int sum = nums[i] + nums[start] + nums[end];
 
-                if (Math.abs(sum - target) < Math.abs(closestSum - target))
-                    closestSum = sum;
+                if(sum == target) return sum;
 
-                if (sum < target) start++;
+                if(Math.abs(sum - target) < Math.abs(closestSum - target)) closestSum = sum;
 
-                else if (sum > target) end--;
-
-                else return sum;
+                if(sum < target) start++;
+                else end--;
             }
         }
 
